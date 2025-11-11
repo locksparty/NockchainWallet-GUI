@@ -44,11 +44,11 @@ It executes wallet commands through `subprocess`, receives **JSON responses**, a
 ## 🛠️ Installation
 
 ### 1. Clone this repository
-```bash
+
 git clone https://github.com/yourusername/nockchain-wallet-qt.git
 cd nockchain-wallet-qt
 
-2. Install dependencies
+### 2. Install dependencies
 
 Make sure you have Python 3.9+ installed, then run:
 
@@ -60,7 +60,7 @@ python3 -m venv venv
 source venv/bin/activate      # On Windows: venv\Scripts\activate
 pip install PyQt6
 
-3. Launch the app
+###,3. Launch the app
 
 python3 nock2.py
 
@@ -82,42 +82,3 @@ Default configuration example:
   "public_server": "https://nockchain-api.zorp.io",
   "private_port": ""
 }
-
-🪄 Example Screenshot
-
-Add a screenshot once the interface is running:
-
-![Nockchain Wallet Qt Screenshot](docs/screenshot.png)
-
-🧩 Project Structure
-
-nock2.py                 # Main GUI application
-README.md                # Project documentation
-
-🐞 Logging & Troubleshooting
-
-Runtime logs and debug messages appear in the console.
-If the wallet binary is missing or misconfigured, you’ll see an error prompt.
-
-Planned improvements:
-
-    Persistent .log file
-
-    Wallet version compatibility checks
-
-    Input validation (addresses, amounts, etc.)
-
-🤝 Contributing
-
-Pull requests are welcome!
-If you find a bug or want to suggest an enhancement, feel free to open an issue or submit a PR.
-📜 License
-
-This project is licensed under the MIT License.
-See the LICENSE
-
-file for details.
-👤 Author
-
-Locksy
-Operator and developer in optical data transmission systems
