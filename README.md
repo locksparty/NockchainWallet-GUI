@@ -60,25 +60,6 @@ python3 -m venv venv
 source venv/bin/activate      # On Windows: venv\Scripts\activate
 pip install PyQt6
 
-###,3. Launch the app
+### 3. Launch the app
 
-python3 nock2.py
-
-⚙️ Configuration
-
-On first run, the app creates a configuration file at:
-
-~/.nockwallet_config.json
-
-You can edit it manually or through the GUI.
-
-Default configuration example:
-
-{
-  "wallet_binary": "nockchain-wallet",
-  "wallet_path": "",
-  "wallet_imported": false,
-  "client_type": "public",
-  "public_server": "https://nockchain-api.zorp.io",
-  "private_port": ""
-}
+python3 nockwallet.py
