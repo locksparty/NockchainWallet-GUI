@@ -533,34 +533,38 @@ class NockchainWalletGUI(QMainWindow):
             self.log_area.append_log(f"✗ Erreur: {str(e)}", "error")
             logger.error(f"Erreur refresh balance: {e}")
 
-    def _load_notes(self):
-        if not config['wallet_imported']:
-            return
-        try:
-            cmd = self._build_base_command()
-            cmd.append('list-notes')
-            if self.watch_only_notes_cb.isChecked():
-                cmd.append('--include-watch-only')
-            self.log_area.append_log(f"$ {' '.join(cmd)}", "command")
-            result = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
-            if result.returncode == 0:
-                output = result.stdout
-                notes = self.parser.parse_notes(output)
-                self.notes_table.setRowCount(len(notes))
-                if notes:
-                    self.log_area.append_log(f"📝 {len(notes)} note(s) trouvée(s)", "success")
-                    for i, note in enumerate(notes):
-                        self.notes_table.setItem(i, 0, QTableWidgetItem(note))
-                else:
-                    self.log_area.append_log("ℹ Aucune note trouvée", "info")
-            else:
-                error = self.parser.extract_error(result.stderr)
-                self.log_area.append_log(f"✗ Erreur: {error}", "error")
-        except subprocess.TimeoutExpired:
-            self.log_area.append_log("✗ Timeout lors du chargement des notes", "error")
-        except Exception as e:
-            self.log_area.append_log(f"✗ Erreur: {str(e)}", "error")
-            logger.error(f"Erreur load notes: {e}")
+    def _create_notes_tab(self) -> QWidget:
+        """Crée l'onglet Notes"""
+       widget = QWidget()
+    layout = QVBoxLayout()
+    
+    options_layout = QHBoxLayout()
+    self.watch_only_notes_cb = QCheckBox("Inclure notes watch-only")
+    options_layout.addWidget(self.watch_only_notes_cb)
+    
+    btn_load_notes = QPushButton("🔄 Charger")
+    btn_load_notes.clicked.connect(self._load_notes)
+    options_layout.addWidget(btn_load_notes)
+    options_layout.addStretch()
+    layout.addLayout(options_layout)
+    
+    self.notes_table = QTableWidget()
+    self.notes_table.setColumnCount(4)
+    self.notes_table.setHorizontalHeaderLabels(["☑", "Note ID", "Montant", "Conf."])
+    
+        # Tailles de colonnes
+        self.notes_table.setColumnWidth(0, 40)   # Checkbox
+        self.notes_table.setColumnWidth(2, 150)  # Montant
+        self.notes_table.setColumnWidth(3, 80)   # Confirmations
+    
+        header = self.notes_table.horizontalHeader()
+        header.setStretchLastSection(False)
+        header.setSectionResizeMode(1, QHeaderView.ResizeMode.Stretch)  # Note ID stretch
+    
+        layout.addWidget(self.notes_table)
+    
+        widget.setLayout(layout)
+    return widget
 
     def _on_client_type_changed(self):
         if self.public_client_rb.isChecked():
