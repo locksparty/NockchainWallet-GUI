@@ -535,22 +535,22 @@ class NockchainWalletGUI(QMainWindow):
 
     def _create_notes_tab(self) -> QWidget:
         """Crée l'onglet Notes"""
-       widget = QWidget()
-    layout = QVBoxLayout()
+        widget = QWidget()
+        layout = QVBoxLayout()
     
-    options_layout = QHBoxLayout()
-    self.watch_only_notes_cb = QCheckBox("Inclure notes watch-only")
-    options_layout.addWidget(self.watch_only_notes_cb)
+        options_layout = QHBoxLayout()
+        self.watch_only_notes_cb = QCheckBox("Inclure notes watch-only")
+        options_layout.addWidget(self.watch_only_notes_cb)
     
-    btn_load_notes = QPushButton("🔄 Charger")
-    btn_load_notes.clicked.connect(self._load_notes)
-    options_layout.addWidget(btn_load_notes)
-    options_layout.addStretch()
-    layout.addLayout(options_layout)
+        btn_load_notes = QPushButton("🔄 Charger")
+        btn_load_notes.clicked.connect(self._load_notes)
+        options_layout.addWidget(btn_load_notes)
+        options_layout.addStretch()
+        layout.addLayout(options_layout)
     
-    self.notes_table = QTableWidget()
-    self.notes_table.setColumnCount(4)
-    self.notes_table.setHorizontalHeaderLabels(["☑", "Note ID", "Montant", "Conf."])
+        self.notes_table = QTableWidget()
+        self.notes_table.setColumnCount(4)
+        self.notes_table.setHorizontalHeaderLabels(["☑", "Note ID", "Montant", "Conf."])
     
         # Tailles de colonnes
         self.notes_table.setColumnWidth(0, 40)   # Checkbox
@@ -564,7 +564,7 @@ class NockchainWalletGUI(QMainWindow):
         layout.addWidget(self.notes_table)
     
         widget.setLayout(layout)
-    return widget
+        return widget
 
     def _on_client_type_changed(self):
         if self.public_client_rb.isChecked():
